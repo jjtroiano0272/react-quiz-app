@@ -88,7 +88,7 @@ export default function Main(props) {
               label='Number of Questions'
               onChange={handleChangeQuestions}
             >
-              {[...Array(30).keys()].map(num => (
+              {[...Array(30).keys()].map((num, index) => (
                 <MenuItem value={num}>{num}</MenuItem>
               ))}
             </Select>
@@ -104,7 +104,7 @@ export default function Main(props) {
               label='Difficulty'
               onChange={handleChangeDifficulty}
             >
-              {['Easy', 'Normal', 'Hard'].map(choice => (
+              {['Easy', 'Normal', 'Hard'].map((choice, index) => (
                 <MenuItem value={choice.toLowerCase()}>{choice}</MenuItem>
               ))}
             </Select>

@@ -22,6 +22,7 @@
 - [ ] Fixing the unique key props
 - [ ] <li> appearing as descendant of <li>
 - [ ] Some of prettier's formatting, like [JSX{} blocks]
+- [ ] ButtonGroup settings as to programmatially advance slide
 
 ## Sources/Thanks to
 
