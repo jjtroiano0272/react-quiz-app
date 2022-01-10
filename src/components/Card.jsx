@@ -6,51 +6,44 @@ import { nanoid } from 'nanoid';
 
 export default function Card({
   id = nanoid(),
+  triviaData,
   question,
   incorrect_answers,
   correct_answer,
-  data,
-  setTakingQuiz,
+  setInGameLoop,
   setScore,
+  score,
+  currentQuestion,
+  setCurrentQuestion,
 }) {
   const choices = incorrect_answers.concat(correct_answer);
-  const [userData, setUserData] = useState({
-    numQuestions: 0,
-  });
-  const [currentQuestion, setCurrentQuestion] = useState(0);
 
   useEffect(() => {}, [currentQuestion]);
 
-  function handleAnswerButtonClick(answerOption) {
-    // on click, advance slide
-    answerOption === correct_answer
-      ? setScore(prevScore => prevScore + 1)
+  function handleAnswerButtonClick(selectedAnswer) {
+    console.log(
+      `selectedAnswer: ${selectedAnswer}\ncorrect_answer: ${correct_answer}`
+    );
+    selectedAnswer === correct_answer
+      ? setScore(score + 1)
       : console.log('incorrect answer');
 
     // console.log(carouselRef);
     // carouselRef.next();
-    const nextQuestion = currentQuestion + 1;
-    if (nextQuestion < data.length) {
-      setCurrentQuestion(nextQuestion);
-    } else {
-      setTakingQuiz(false);
-    }
+    currentQuestion + 1 < triviaData.length
+      ? setCurrentQuestion(currentQuestion + 1)
+      : setInGameLoop(false);
+
+    setCurrentQuestion(currentQuestion + 1);
   }
 
-  function randomizeChoices(items) {
-    return items.sort(item =>
-      item.type === 'multiple' ? Math.random - 0.5 : item
-    );
-    // Except if T/F, print in the order of T/F
-    // .filter((item) => item.type === 'multiple')
+  function shuffleChoices(arr1, arr2) {
+    const allChoices = arr1.concat(arr2);
+
+    return allChoices.sort((a, b) => 0.5 - Math.random());
   }
 
   return (
-    // <li
-    //   data-target='#carouselExampleIndicators'
-    //   data-slide-to={id}
-    //   // className={id === 1 && 'active'}
-    // >
     <div className='card bg-light text-dark mb-3 my-5 mx-4'>
       {/* <div className='card-badge bg-light text-dark'>{badgeText}</div> */}
 
@@ -64,15 +57,17 @@ export default function Card({
         <Stack spacing={2} direction='column'>
           {/* If selected, variant is 'contained' */}
 
-          {randomizeChoices(choices).map((answerOption, index, elements) => (
-            <Button
-              variant={'outlined'}
-              onClick={() => handleAnswerButtonClick(answerOption)}
-              key={index}
-            >
-              {answerOption}
-            </Button>
-          ))}
+          {shuffleChoices(incorrect_answers, correct_answer).map(
+            (choice, index) => (
+              <Button
+                variant={'outlined'}
+                onClick={() => handleAnswerButtonClick(choice)}
+                key={index}
+              >
+                {choice}
+              </Button>
+            )
+          )}
         </Stack>
       </div>
     </div>

@@ -14,8 +14,8 @@ import categoryLegend from '../categoryLegend';
 export default function Main(props) {
   // TODO: Why the hell does setting it to an empty array cause it to function?
   const [triviaData, setTriviaData] = useState([]);
-  const [takingQuiz, setTakingQuiz] = useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [inGameLoop, setInGameLoop] = useState(false);
+  // const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
 
@@ -23,11 +23,11 @@ export default function Main(props) {
   const [userPreferences, setUserPreferences] = useState({
     numQuestions: 10,
     difficulty: 'medium',
-    // URL: &category= [9, 32]
-    // You'll get this response and spit it back to the user
-    // If there is no category selected, nothing is appended to the URL
-    category: 9,
+    category: 9, // Category 9 is for "All categories"
   });
+
+  console.log('Current score: ', score);
+
   const { numQuestions, category, difficulty } = userPreferences;
 
   // TODO: After loop, store userPreferences in localstorage and just re-read it, with an option to change this at the top.
@@ -45,9 +45,6 @@ export default function Main(props) {
 
     const myVar = localStorage.getItem('userPreferences');
     // setUserPreferences(myVar);
-    console.log(
-      `Number of questions selected: ${userPreferences.numQuestions}\nDifficulty: ${userPreferences.difficulty}`
-    );
   }, [userPreferences, score]);
 
   // Checking user settings
@@ -68,16 +65,9 @@ export default function Main(props) {
     );
   }
 
-  const handleChangePreferences = (event, item) => {
-    // setUserPreferences({
-    //   numQuestions: event.target.value,
-    //   difficulty: event.target.value,
-    // });
-    // setUserPreferences({ numQuestions: event.target.value });
-  };
-
-  console.log(triviaData);
-  console.log(categoryLegend);
+  function handleReset() {
+    setInGameLoop(false);
+  }
 
   function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
@@ -87,10 +77,17 @@ export default function Main(props) {
     return Object.values(object).find(value => object[value] === key);
   }
 
+  // console.log(
+  //   shuffleChoices(
+  //     triviaData[0].incorrect_answers,
+  //     triviaData[0].correct_answer
+  //   )
+  // );
   return (
     <div className='container'>
       {/* Welcome screen */}
-      {!takingQuiz ? (
+
+      {!inGameLoop ? (
         <div>
           {/* Dropdown menu */}
           <FormControl sx={{ m: 1, minWidth: 150 }}>
@@ -176,7 +173,7 @@ export default function Main(props) {
             variant='contained'
             size='large'
             fullWidth
-            onClick={() => setTakingQuiz(true)}
+            onClick={() => setInGameLoop(true)}
           >
             START
           </Button>
@@ -185,15 +182,13 @@ export default function Main(props) {
         // Play the actual game
         <div>
           <CardDeck
-            data={triviaData}
-            setTakingQuiz={setTakingQuiz}
+            triviaData={triviaData}
+            setInGameLoop={setInGameLoop}
             setScore={setScore}
+            score={score}
           />
           <Box textAlign='center'>
-            <Button
-              className='text-muted mt-2'
-              onClick={() => setTakingQuiz(false)}
-            >
+            <Button className='text-muted mt-2' onClick={() => handleReset()}>
               RESET
             </Button>
           </Box>

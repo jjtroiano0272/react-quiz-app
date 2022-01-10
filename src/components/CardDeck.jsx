@@ -5,20 +5,13 @@ import { responsive } from './common/carouselResponsivePoints.jsx';
 import Card from './Card';
 import Button from '@mui/material/Button';
 
-export default function CardDeck({ data, setTakingQuiz, setScore }) {
-  // const [Carousel, setCarousel] = useState();
-  // const carouselRef = useRef(null);
-
-  const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
-    const {
-      carouselState: { currentSlide },
-    } = rest;
-    return (
-      <div className='carousel-button-group'>
-        {/* <Button onClick={() => next()} /> */}
-      </div>
-    );
-  };
+export default function CardDeck({
+  triviaData,
+  setInGameLoop,
+  setScore,
+  score,
+}) {
+  const [currentQuestion, setCurrentQuestion] = useState(0);
 
   return (
     <Carousel
@@ -32,24 +25,21 @@ export default function CardDeck({ data, setTakingQuiz, setScore }) {
       arrows={false}
       renderButtonGroupOutside={true}
       removeArrowOnDeviceType={['tablet', 'mobile']}
-      // ref={carouselRef}
-      // autoPlay={this.props.deviceType !== 'mobile' ? true : false}
-      // deviceType={this.props.deviceType}
-      // dotListClass='custom-dot-list-style'
-      // itemClass='carousel-item-padding-40-px'
     >
-      {/* <Button variant='contained' onClick={() => carouselRef.current.next()} /> */}
-      {/* <Button variant="contained" onClick={() => next()} /> */}
-      {data.map((item, index) => (
-        <Card
-          key={index}
-          question={item.question}
-          incorrect_answers={item.incorrect_answers}
-          correct_answer={item.correct_answer}
-          data={data}
-          setTakingQuiz={setTakingQuiz}
-          setScore={setScore}
-        />
+      {triviaData.map((item, index) => (
+        <div>
+          <Card
+            key={index}
+            question={item.question}
+            incorrect_answers={item.incorrect_answers}
+            correct_answer={item.correct_answer}
+            triviaData={triviaData}
+            setInGameLoop={setInGameLoop}
+            setScore={setScore}
+            score={score}
+            currentQuestion={currentQuestion}
+          />
+        </div>
       ))}
     </Carousel>
   );
