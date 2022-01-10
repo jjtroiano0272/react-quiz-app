@@ -15,24 +15,26 @@ export default function Card({
   score,
   currentQuestion,
   setCurrentQuestion,
+  showScore,
+  setShowScore,
 }) {
   const choices = incorrect_answers.concat(correct_answer);
 
   useEffect(() => {}, [currentQuestion]);
 
   function handleAnswerButtonClick(selectedAnswer) {
-    console.log(
-      `selectedAnswer: ${selectedAnswer}\ncorrect_answer: ${correct_answer}`
-    );
-    selectedAnswer === correct_answer
+    selectedAnswer === triviaData[currentQuestion].correct_answer
       ? setScore(score + 1)
-      : console.log('incorrect answer');
+      : alert(
+          `Sorry! The correct answer was ${triviaData[currentQuestion].correct_answer}! Try again.`
+        );
 
-    // console.log(carouselRef);
-    // carouselRef.next();
-    currentQuestion + 1 < triviaData.length
-      ? setCurrentQuestion(currentQuestion + 1)
-      : setInGameLoop(false);
+    if (currentQuestion + 1 < triviaData.length) {
+      setCurrentQuestion(currentQuestion + 1);
+    } else {
+      setInGameLoop(false);
+      setShowScore(true);
+    }
 
     setCurrentQuestion(currentQuestion + 1);
   }
@@ -45,19 +47,18 @@ export default function Card({
 
   return (
     <div className='card bg-light text-dark mb-3 my-5 mx-4'>
-      {/* <div className='card-badge bg-light text-dark'>{badgeText}</div> */}
-
-      {/* FIXME:  */}
       <div className='card-body'>
         <h5
           className='card-title d-flex mb-4'
-          dangerouslySetInnerHTML={{ __html: question }}
+          dangerouslySetInnerHTML={{
+            __html: triviaData[currentQuestion].question,
+          }}
         />
 
         <Stack spacing={2} direction='column'>
           {/* If selected, variant is 'contained' */}
-
-          {shuffleChoices(incorrect_answers, correct_answer).map(
+          {/*  */}
+          {/* {shuffleChoices(incorrect_answers, correct_answer).map(
             (choice, index) => (
               <Button
                 variant={'outlined'}
@@ -67,7 +68,19 @@ export default function Card({
                 {choice}
               </Button>
             )
-          )}
+          )} */}
+          {triviaData[currentQuestion].incorrect_answers
+            .concat(triviaData[currentQuestion].correct_answer)
+            .sort((a, b) => 0.5 - Math.random())
+            .map((answerOption, index) => (
+              <Button
+                variant={'outlined'}
+                onClick={() => handleAnswerButtonClick(answerOption)}
+                key={index}
+              >
+                {answerOption}
+              </Button>
+            ))}
         </Stack>
       </div>
     </div>

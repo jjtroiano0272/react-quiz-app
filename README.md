@@ -5,14 +5,15 @@
 - [x] Questions are presented one-at-a-time as swipable cards
 - [x] MUI design
 - [x] Setting user's settings
-- [ ] The card must advance NO MATTER which answer you pick (correct or incorrect)
+- [x] The card must advance NO MATTER which answer you pick (correct or incorrect)
+- [x] Multipe choice questions are not randomized (10JAN22)
+- [o] Allow user to select the category of questions, or multiple, or random, or all categories
 - [ ] It currently counts both correct AND incorrect choices as adding +1 to the slide count
 - [ ] Print T/F questions in the order 'True, False'
-- [ ] Multipe choice questions are not randomized
-- [ ] Allow user to select the category of questions, or multiple, or random, or all categories
 - [ ] Use dangerouslysetInnerHTML on answer options
 - [ ] As per the API (at least on free tier, you CANNOT make a call with multiple categories)
 - [ ] Add a summary screen once the 10 questions have been reached, with a "PLAY AGAIN" button. This will reset state and make takingQuiz to be false
+- [ ] Flip the card over to reveal the correct answer?
 - [ ] Change favicon
 - [ ] Full scope of Dark/Light theme
 
@@ -25,14 +26,15 @@
 ### Bugs to fix
 
 - [x] (07JAN22) Printing the data.question etc. properties ends up rendering the " char as &quot; and other ones too. Find a work around.
-- [ ] (07JAN22) Progress to next card of carousel once answer is selected
+- [x] ButtonGroup settings as to programmatially advance slide (10JAN22)
 - [x] (07JAN22) Display dots for number of questions and current placement at bottom of card
-- [ ] (07JAN22) Button variant is changed to 'contained' once a choice is made, button is clicked on
+- [x] (07JAN22) Progress to next card of carousel once answer is selected (10JAN22)
+- [x] <li> appearing as descendant of <li>
 - [ ] Fixing the unique key props
-- [ ] <li> appearing as descendant of <li>
+- [ ] (07JAN22) Button variant is changed to 'contained' once a choice is made, button is clicked on
 - [ ] Some of prettier's formatting, like [JSX{} blocks]
-- [ ] ButtonGroup settings as to programmatially advance slide
+- [ ] (10JAN22) A different randomization pattern...there might be bias towards placing the correct answer as the final option
 
 ## Sources/Thanks to
 
-- [ ]
+- [ ] https://www.freecodecamp.org/news/how-to-build-a-quiz-app-using-react/

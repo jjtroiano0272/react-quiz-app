@@ -10,8 +10,12 @@ export default function CardDeck({
   setInGameLoop,
   setScore,
   score,
+  currentQuestion,
+  setCurrentQuestion,
+  showScore,
+  setShowScore,
 }) {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  // const [currentQuestion, setCurrentQuestion] = useState(0);
 
   return (
     <Carousel
@@ -27,19 +31,20 @@ export default function CardDeck({
       removeArrowOnDeviceType={['tablet', 'mobile']}
     >
       {triviaData.map((item, index) => (
-        <div>
-          <Card
-            key={index}
-            question={item.question}
-            incorrect_answers={item.incorrect_answers}
-            correct_answer={item.correct_answer}
-            triviaData={triviaData}
-            setInGameLoop={setInGameLoop}
-            setScore={setScore}
-            score={score}
-            currentQuestion={currentQuestion}
-          />
-        </div>
+        <Card
+          key={index}
+          question={item.question}
+          incorrect_answers={item.incorrect_answers}
+          correct_answer={item.correct_answer}
+          triviaData={triviaData}
+          setInGameLoop={setInGameLoop}
+          setScore={setScore}
+          score={score}
+          currentQuestion={currentQuestion}
+          setCurrentQuestion={setCurrentQuestion}
+          showScore={showScore}
+          setShowScore={setShowScore}
+        />
       ))}
     </Carousel>
   );

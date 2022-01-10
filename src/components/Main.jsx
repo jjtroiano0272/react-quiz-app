@@ -15,7 +15,7 @@ export default function Main(props) {
   // TODO: Why the hell does setting it to an empty array cause it to function?
   const [triviaData, setTriviaData] = useState([]);
   const [inGameLoop, setInGameLoop] = useState(false);
-  // const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
 
@@ -53,18 +53,6 @@ export default function Main(props) {
   //   setUserPreferences(myVar);
   // }, [userPreferences]);
 
-  async function renderChoices(data) {
-    const numChoices =
-      data.correct_answer.length + data.incorrect_answers.length;
-
-    return (
-      // Filter the keys by 'correct_answer' and 'incorrect_answers' to return one array with the choices back
-      // const result = words.filter(word => word.length > 6);
-
-      <div></div>
-    );
-  }
-
   function handleReset() {
     setInGameLoop(false);
   }
@@ -77,12 +65,6 @@ export default function Main(props) {
     return Object.values(object).find(value => object[value] === key);
   }
 
-  // console.log(
-  //   shuffleChoices(
-  //     triviaData[0].incorrect_answers,
-  //     triviaData[0].correct_answer
-  //   )
-  // );
   return (
     <div className='container'>
       {/* Welcome screen */}
@@ -180,24 +162,37 @@ export default function Main(props) {
         </div>
       ) : (
         // Play the actual game
-        <div>
+        <>
           <CardDeck
             triviaData={triviaData}
             setInGameLoop={setInGameLoop}
             setScore={setScore}
             score={score}
+            setCurrentQuestion={setCurrentQuestion}
+            currentQuestion={currentQuestion}
+            showScore={showScore}
+            setShowScore={setShowScore}
           />
           <Box textAlign='center'>
             <Button className='text-muted mt-2' onClick={() => handleReset()}>
               RESET
             </Button>
           </Box>
-        </div>
+        </>
       )}
-
-      {/* TODO: probably offload this */}
-      {/* TODO: Might need a toggleSelect prop */}
-      {/* TODO: Also might want to just offload this all into a renderSelections function */}
+      {/* {GAME OVER SCREEN} */}
+      {!inGameLoop && showScore && (
+        <Box textAlign='center'>
+          <Button
+            variant='contained'
+            fullWidth
+            className='mt-2'
+            onClick={() => handleReset()}
+          >
+            PLAY AGAIN
+          </Button>
+        </Box>
+      )}
     </div>
   );
 }
