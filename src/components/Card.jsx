@@ -9,28 +9,32 @@ export default function Card({
   question,
   incorrect_answers,
   correct_answer,
+  data,
+  setTakingQuiz,
+  setScore,
 }) {
   const choices = incorrect_answers.concat(correct_answer);
   const [userData, setUserData] = useState({
     numQuestions: 0,
   });
-  const [selected, setSelected] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
-  useEffect(() => {
-    console.log('currentQuestion is ', currentQuestion);
-  }, [currentQuestion]);
+  useEffect(() => {}, [currentQuestion]);
 
-  function selectChoice(choice) {
-    console.log('Choice selected! Now switching to next card in deck...');
-    console.log('Selected: ', choice);
-    // Set userSelections in state to this choice for the question
-    setSelected(true);
+  function handleAnswerButtonClick(answerOption) {
+    // on click, advance slide
+    answerOption === correct_answer
+      ? setScore(prevScore => prevScore + 1)
+      : console.log('incorrect answer');
 
     // console.log(carouselRef);
     // carouselRef.next();
     const nextQuestion = currentQuestion + 1;
-    setCurrentQuestion(nextQuestion);
+    if (nextQuestion < data.length) {
+      setCurrentQuestion(nextQuestion);
+    } else {
+      setTakingQuiz(false);
+    }
   }
 
   function randomizeChoices(items) {
@@ -60,12 +64,13 @@ export default function Card({
         <Stack spacing={2} direction='column'>
           {/* If selected, variant is 'contained' */}
 
-          {randomizeChoices(choices).map((choice, index, elements) => (
+          {randomizeChoices(choices).map((answerOption, index, elements) => (
             <Button
-              variant={selected ? 'contained' : 'outlined'}
-              onClick={() => selectChoice(choice)}
+              variant={'outlined'}
+              onClick={() => handleAnswerButtonClick(answerOption)}
+              key={index}
             >
-              {choice}
+              {answerOption}
             </Button>
           ))}
         </Stack>

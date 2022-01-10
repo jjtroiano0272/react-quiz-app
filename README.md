@@ -1,11 +1,14 @@
 ## Additions (+)
 
-- [ ] Trivia Databse to pull from
-- [ ] User gets to choose number of questions
-- [ ] Questions are presented one-at-a-time as swipable cards
-- [ ] MUI design
-- [ ] Setting user's settings
+- [x] Trivia Databse to pull from
+- [x] User gets to choose number of questions
+- [x] Questions are presented one-at-a-time as swipable cards
+- [x] MUI design
+- [x] Setting user's settings
 - [ ] Allow user to select the category of questions, or multiple, or random, or all categories
+- [ ] Use dangerouslysetInnerHTML on answer options
+- [ ] Print T/F questions in the order 'True, False'
+- [ ] As per the API (at least on free tier, you CANNOT make a call with multiple categories)
 
 ## Things to look out for/Notes
 
@@ -15,9 +18,9 @@
 
 ### Bugs to fix
 
-- [ ] (07JAN22) Printing the data.question etc. properties ends up rendering the " char as &quot; and other ones too. Find a work around.
+- [x] (07JAN22) Printing the data.question etc. properties ends up rendering the " char as &quot; and other ones too. Find a work around.
 - [ ] (07JAN22) Progress to next card of carousel once answer is selected
-- [ ] (07JAN22) Display dots for number of questions and current placement at bottom of card
+- [x] (07JAN22) Display dots for number of questions and current placement at bottom of card
 - [ ] (07JAN22) Button variant is changed to 'contained' once a choice is made, button is clicked on
 - [ ] Fixing the unique key props
 - [ ] <li> appearing as descendant of <li>

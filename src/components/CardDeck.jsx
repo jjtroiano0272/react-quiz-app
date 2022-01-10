@@ -5,7 +5,7 @@ import { responsive } from './common/carouselResponsivePoints.jsx';
 import Card from './Card';
 import Button from '@mui/material/Button';
 
-export default function CardDeck({ data }) {
+export default function CardDeck({ data, setTakingQuiz, setScore }) {
   // const [Carousel, setCarousel] = useState();
   // const carouselRef = useRef(null);
 
@@ -24,7 +24,7 @@ export default function CardDeck({ data }) {
     <Carousel
       responsive={responsive}
       swipeable={true}
-      showDots={true}
+      showDots={false}
       keyBoardControl={true}
       customTransition='all .5'
       transitionDuration={500}
@@ -42,10 +42,13 @@ export default function CardDeck({ data }) {
       {/* <Button variant="contained" onClick={() => next()} /> */}
       {data.map((item, index) => (
         <Card
-          key={item.id}
+          key={index}
           question={item.question}
           incorrect_answers={item.incorrect_answers}
           correct_answer={item.correct_answer}
+          data={data}
+          setTakingQuiz={setTakingQuiz}
+          setScore={setScore}
         />
       ))}
     </Carousel>
