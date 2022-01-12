@@ -8,14 +8,21 @@
 - [x] The card must advance NO MATTER which answer you pick (correct or incorrect)
 - [x] Multipe choice questions are not randomized (10JAN22)
 - [o] Allow user to select the category of questions, or multiple, or random, or all categories
-- [ ] It currently counts both correct AND incorrect choices as adding +1 to the slide count
 - [ ] Print T/F questions in the order 'True, False'
+- [x] Change game logic var names
+- [ ] Restructure game logi
+- [ ] Prettier JSX formatting
+- [ ] Bootstrap sizing (it's too wide on >md screens)
+- [ ] Full scope of Dark/Light theme
+- [ ] Select inputs sizing
+- [ ] It currently counts both correct AND incorrect choices as adding +1 to the slide count
+- [ ] Prevent previously shown/answered questions from showing up again (or atleast within a day)
 - [ ] Use dangerouslysetInnerHTML on answer options
 - [ ] As per the API (at least on free tier, you CANNOT make a call with multiple categories)
 - [ ] Add a summary screen once the 10 questions have been reached, with a "PLAY AGAIN" button. This will reset state and make takingQuiz to be false
 - [ ] Flip the card over to reveal the correct answer?
 - [ ] Change favicon
-- [ ] Full scope of Dark/Light theme
+- [ ] Interesting or wild/flashy :root background that shows up only if you scroll out of bounds of page
 
 ## Things to look out for/Notes
 

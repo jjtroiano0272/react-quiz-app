@@ -11,11 +11,11 @@ import Select from '@mui/material/Select';
 import CardDeck from './CardDeck';
 import categoryLegend from '../categoryLegend';
 
+// TODO: Why the hell does setting it to an empty array cause it to function?
 export default function Main(props) {
-  // TODO: Why the hell does setting it to an empty array cause it to function?
   const [triviaData, setTriviaData] = useState([]);
-  const [inGameLoop, setInGameLoop] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [inGameLoop, setInGameLoop] = useState(false);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
 
@@ -25,8 +25,6 @@ export default function Main(props) {
     difficulty: 'medium',
     category: 9, // Category 9 is for "All categories"
   });
-
-  console.log('Current score: ', score);
 
   const { numQuestions, category, difficulty } = userPreferences;
 
@@ -65,11 +63,10 @@ export default function Main(props) {
     return Object.values(object).find(value => object[value] === key);
   }
 
-  return (
-    <div className='container'>
-      {/* Welcome screen */}
-
-      {!inGameLoop ? (
+  function renderGame() {
+    // WELCOME SCREEN
+    if (!inGameLoop && !showScore) {
+      return (
         <div>
           {/* Dropdown menu */}
           <FormControl sx={{ m: 1, minWidth: 150 }}>
@@ -135,7 +132,7 @@ export default function Main(props) {
               }
             >
               {/* value is the actual data passed to the API call.
-                    We need to get the KEY for the VALUE */}
+              We need to get the KEY for the VALUE */}
               {/* Object.keys(object).find(key => object[key] === value) */}
               {/* KEY: category */}
               {/* VALUE: Object.values(Categ) */}
@@ -160,8 +157,11 @@ export default function Main(props) {
             START
           </Button>
         </div>
-      ) : (
-        // Play the actual game
+      );
+    }
+    // PLAYING GAME
+    if (inGameLoop && !showScore) {
+      return (
         <>
           <CardDeck
             triviaData={triviaData}
@@ -179,9 +179,11 @@ export default function Main(props) {
             </Button>
           </Box>
         </>
-      )}
-      {/* {GAME OVER SCREEN} */}
-      {!inGameLoop && showScore && (
+      );
+    }
+    // SUMMARY/PLAY AGAIN
+    if (!inGameLoop && showScore) {
+      return (
         <Box textAlign='center'>
           <Button
             variant='contained'
@@ -192,7 +194,9 @@ export default function Main(props) {
             PLAY AGAIN
           </Button>
         </Box>
-      )}
-    </div>
-  );
+      );
+    }
+  }
+
+  return <div className='container'>{renderGame()}</div>;
 }
