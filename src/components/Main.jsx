@@ -7,6 +7,8 @@ import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
+import SettingsIcon from '@mui/icons-material/Settings';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import Select from '@mui/material/Select';
 import CardDeck from './CardDeck';
 import categoryLegend from '../categoryLegend';
@@ -53,6 +55,8 @@ export default function Main(props) {
 
   function handleReset() {
     setInGameLoop(false);
+    setShowScore(false);
+    setScore(0);
   }
 
   function getKeyByValue(object, value) {
@@ -159,6 +163,7 @@ export default function Main(props) {
         </div>
       );
     }
+
     // PLAYING GAME
     if (inGameLoop && !showScore) {
       return (
@@ -175,7 +180,7 @@ export default function Main(props) {
           />
           <Box textAlign='center'>
             <Button className='text-muted mt-2' onClick={() => handleReset()}>
-              RESET
+              <SettingsOutlinedIcon />
             </Button>
           </Box>
         </>
@@ -184,19 +189,29 @@ export default function Main(props) {
     // SUMMARY/PLAY AGAIN
     if (!inGameLoop && showScore) {
       return (
-        <Box textAlign='center'>
-          <Button
-            variant='contained'
-            fullWidth
-            className='mt-2'
-            onClick={() => handleReset()}
-          >
-            PLAY AGAIN
-          </Button>
-        </Box>
+        <>
+          <Box textAlign='center'>
+            <Button
+              variant='contained'
+              fullWidth
+              className='mt-2'
+              onClick={() => {
+                setInGameLoop(true);
+                setShowScore(false);
+              }}
+            >
+              PLAY AGAIN
+            </Button>
+          </Box>
+          <Box textAlign='center'>
+            <Button className='text-muted mt-2' onClick={() => handleReset()}>
+              CHANGE SETTINGS
+            </Button>
+          </Box>
+        </>
       );
     }
   }
 
-  return <div className='container'>{renderGame()}</div>;
+  return <div className='container pb-5'>{renderGame()}</div>;
 }

@@ -37,7 +37,7 @@ export default function Navbar({ user }) {
   );
 
   return (
-    <nav className='navbar navbar-expand-lg navbar-light mb-4'>
+    <nav className='navbar navbar-expand-lg navbar-fixed-top navbar-light mb-4'>
       <div className='container'>
         <NavLink to='/' className='navbar-brand'>
           <img src={logo} alt='Brand logo' id='nav-logo' />
