@@ -4,6 +4,7 @@ import 'react-multi-carousel/lib/styles.css';
 import { responsive } from './common/carouselResponsivePoints.jsx';
 import Card from './Card';
 import Button from '@mui/material/Button';
+import Flip from 'react-reveal/Flip';
 
 export default function CardDeck({
   triviaData,
@@ -16,6 +17,11 @@ export default function CardDeck({
   setShowScore,
 }) {
   // const [currentQuestion, setCurrentQuestion] = useState(0);
+
+  const [cardClicked, setCardClicked] = useState(false);
+  const handleCardClick = () => {
+    setCardClicked(!cardClicked);
+  };
 
   return (
     <Carousel
@@ -31,20 +37,23 @@ export default function CardDeck({
       removeArrowOnDeviceType={['tablet', 'mobile']}
     >
       {triviaData.map((item, index) => (
-        <Card
-          key={index}
-          question={item.question}
-          incorrect_answers={item.incorrect_answers}
-          correct_answer={item.correct_answer}
-          triviaData={triviaData}
-          setInGameLoop={setInGameLoop}
-          setScore={setScore}
-          score={score}
-          currentQuestion={currentQuestion}
-          setCurrentQuestion={setCurrentQuestion}
-          showScore={showScore}
-          setShowScore={setShowScore}
-        />
+        <Flip top collapse spy={handleCardClick}>
+          <Card
+            key={index}
+            question={item.question}
+            incorrect_answers={item.incorrect_answers}
+            correct_answer={item.correct_answer}
+            triviaData={triviaData}
+            setInGameLoop={setInGameLoop}
+            setScore={setScore}
+            score={score}
+            currentQuestion={currentQuestion}
+            setCurrentQuestion={setCurrentQuestion}
+            showScore={showScore}
+            setShowScore={setShowScore}
+            onClick={handleCardClick}
+          />
+        </Flip>
       ))}
     </Carousel>
   );
